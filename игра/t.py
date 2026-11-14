@@ -27,6 +27,18 @@ while running:
         player.x += 5
     player.clamp_ip(screen.get_rect())
     enemy.y += 2
+    
+    for bullet in bullets[:]:
+        bullet.y -= 8
+        if bullet.colliderect(enemy):
+            bullets.remove(bullet)
+            score += 1
+            enemy.topleft = (random.randint(0, 550), -50)
+        elif bullet.bottom < 0:
+            bullets.remove(bullet)
 
+    if enemy.top > 500 or enemy.colliderect(player):
+        score = 0
+        enemy.topleft = (random.randint(0, 550), -50)
 
 pygame.quit()
